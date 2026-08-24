@@ -13,11 +13,11 @@ jobs:
         uses: actions/checkout@v4
 
       - name: Deploy via rsync
-        uses: easingthemes/ssh-deploy@v4  # ← ここを v4 に変更！
+        uses: easingthemes/ssh-deploy@v4
         env:
           SSH_PRIVATE_KEY: ${{ secrets.SSH_PRIVATE_KEY }}
           REMOTE_HOST: ${{ secrets.SSH_HOST }}
           REMOTE_USER: ${{ secrets.SSH_USERNAME }}
           TARGET: /home/xs420368/leftcontroller.com/public_html/
-          PORT: ${{ secrets.SSH_PORT }}
+          PORT: 10022
           ARGS: "-rltgoDzvO --delete"
