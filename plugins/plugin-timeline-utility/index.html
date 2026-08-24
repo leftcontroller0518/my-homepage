@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>タイムライン整理プラグイン | PLUGINS | 左コントローラー 公式サイト</title>
+<meta name="description" content="タイムライン整理プラグインの配布ページです。レイヤーの並び替え・グループ化・一括整理が行えます。">
+<link rel="canonical" href="/plugins/plugin-timeline-utility/">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' fill='%23000000'/%3E%3Cpath d='M10 8h4v12h8v4H10z' fill='%23ffffff'/%3E%3C/svg%3E">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Noto+Sans+JP:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap">
+
+<link rel="stylesheet" href="/assets/css/style.css">
+<script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+</head>
+<body>
+
+<div id="header-placeholder"></div>
+
+<div class="header-spacer"></div>
+
+<main class="container section">
+  <p class="breadcrumb">
+    <a href="/">HOME</a> / <a href="/plugins/">PLUGINS</a> / タイムライン整理プラグイン
+  </p>
+
+  <div id="plugin-content"></div>
+</main>
+
+<div id="footer-placeholder"></div>
+
+<script src="/assets/js/include.js"></script>
+<script>
+async function loadPluginContent() {
+  try {
+    const mdResponse = await fetch('/assets/data/plugin-timeline-utility.md');
+    const mdContent = await mdResponse.text();
+    
+    const pluginsResponse = await fetch('/assets/data/plugins.json');
+    const plugins = await pluginsResponse.json();
+    
+    const plugin = plugins.find(p => p.url === '/plugins/plugin-timeline-utility/');
+    
+    const container = document.getElementById('plugin-content');
+    if (typeof marked !== 'undefined' && marked.parse) {
+      // marked.jsの設定を最適化
+      marked.setOptions({
+        breaks: true,
+        gfm: true,
+        headerIds: false,
+        mangle: false
+      });
+      container.innerHTML = marked.parse(mdContent);
+      
+      // ダウンロードボタンを追加
+      if (plugin && plugin.download) {
+        const downloadSection = document.createElement('div');
+        downloadSection.className = 'download-section';
+        downloadSection.style.marginTop = 'var(--space-xl)';
+        downloadSection.style.paddingTop = 'var(--space-lg)';
+        downloadSection.style.borderTop = '1px solid var(--gray-200)';
+        downloadSection.innerHTML = `
+          <a class="btn btn--primary" href="${plugin.download}" download style="color: var(--white);">
+            <i class="fa-solid fa-download"></i><span> ダウンロード</span>
+          </a>
+        `;
+        container.appendChild(downloadSection);
+      }
+    } else {
+      container.innerHTML = `<pre style="white-space:pre-wrap;font-family:inherit;">${mdContent}</pre>`;
+    }
+  } catch (error) {
+    console.error('マークダウンファイルの読み込みに失敗しました:', error);
+  }
+}
+
+document.addEventListener('DOMContentLoaded', loadPluginContent);
+</script>
+</body>
+</html>

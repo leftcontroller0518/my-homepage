@@ -1,0 +1,18 @@
+[
+  {
+    "title": "字幕装飾プラグイン",
+    "url": "/plugins/plugin-caption-deco/",
+    "md": "/assets/data/plugin-caption-deco.md",
+    "download": "/assets/downloads/plugin-caption-deco.ymme",
+    "icon": "fa-solid fa-closed-captioning",
+    "version": "v1.2.0"
+  },
+  {
+    "title": "タイムライン整理プラグイン",
+    "url": "/plugins/plugin-timeline-utility/",
+    "md": "/assets/data/plugin-timeline-utility.md",
+    "download": "/RegularPolyhedron-v1.0.1.ymme",
+    "icon": "fa-solid fa-cube",
+    "version": "v1.0.0"
+  }
+]

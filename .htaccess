@@ -1,0 +1,25 @@
+# =========================================================
+# 左コントローラー 公式サイト — .htaccess
+# Apache サーバーの場合のみ有効な「おまけ」設定です。
+# HTMLだけの meta refresh によるリダイレクトページ
+# （profile.html / works.html / contact.html / home.html /
+#   plugin/index.html）だけでも動作しますが、
+# Apache であればこちらの 301 リダイレクトの方が
+# 検索エンジン的にも正しい動きになります。
+# Nginx 等の場合は不要なので削除して構いません。
+# =========================================================
+
+# 旧URL(拡張子あり) → ディレクトリ型URLへの301リダイレクト
+Redirect 301 /profile.html /profile/
+Redirect 301 /works.html /works/
+Redirect 301 /contact.html /contact/
+Redirect 301 /home.html /
+
+# 単数形 → 複数形への301リダイレクト
+Redirect 301 /plugin/ /plugins/
+
+# 404エラーページの指定
+ErrorDocument 404 /404.html
+
+# ディレクトリのデフォルトファイル
+DirectoryIndex index.html
