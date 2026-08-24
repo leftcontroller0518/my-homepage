@@ -19,5 +19,5 @@ jobs:
           REMOTE_HOST: ${{ secrets.SSH_HOST }}
           REMOTE_USER: ${{ secrets.SSH_USERNAME }}
           TARGET: /home/xs420368/leftcontroller.com/public_html/
-          PORT: 10022
+          REMOTE_PORT: 10022  # ← ここを「PORT」から「REMOTE_PORT」に変更！
           ARGS: "-rltgoDzvO --delete"
