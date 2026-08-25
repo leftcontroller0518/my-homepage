@@ -21,18 +21,37 @@ async function loadBlogPosts() {
     ul.className = 'log-list';
     
     for (const post of blogPosts) {
-      const li = document.createElement('li');
-      
-      // 日付をフォーマット（XXXX/YY/ZZ → YYYY.MM.DD）
-      const dateParts = post.date.split('/');
-      const formattedDate = `${dateParts[0]}.${dateParts[1]}.${dateParts[2]}`;
-      
-      li.innerHTML = `
-        <time>${formattedDate}</time>
-        <a href="/blog/${post.slug}/" style="color:var(--gray-700);">${post.title}</a>
-      `;
-      
-      ul.appendChild(li);
+      try {
+        // マークダウンファイルを読み込んでタイトルを抽出
+        const mdResponse = await fetch(`/blog/${post.slug}.md`);
+        const mdContent = await mdResponse.text();
+        
+        // 2行目からタイトルを抽出（# タイトル形式）
+        const lines = mdContent.split('\n');
+        let title = post.title; // フォールバック
+        
+        if (lines.length >= 2) {
+          const titleMatch = lines[1].match(/^#\s+(.+)$/);
+          if (titleMatch) {
+            title = titleMatch[1].trim();
+          }
+        }
+        
+        const li = document.createElement('li');
+        
+        // 日付をフォーマット（XXXX/YY/ZZ → YYYY.MM.DD）
+        const dateParts = post.date.split('/');
+        const formattedDate = `${dateParts[0]}.${dateParts[1]}.${dateParts[2]}`;
+        
+        li.innerHTML = `
+          <time>${formattedDate}</time>
+          <a href="/blog/${post.slug}/" style="color:var(--gray-700);">${title}</a>
+        `;
+        
+        ul.appendChild(li);
+      } catch (error) {
+        console.error(`マークダウンファイルの読み込みに失敗しました (${post.slug}):`, error);
+      }
     }
     
     container.appendChild(ul);
