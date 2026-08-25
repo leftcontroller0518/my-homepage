@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>サンプル記事 | BLOG | 左コントローラー 公式サイト</title>
+<meta name="description" content="サンプル記事の記事です。">
+<link rel="canonical" href="/blog/2026-08-25-first-post/">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' fill='%23000000'/%3E%3Cpath d='M10 8h4v12h8v4H10z' fill='%23ffffff'/%3E%3C/svg%3E">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Noto+Sans+JP:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap">
+
+<link rel="stylesheet" href="/assets/css/style.css">
+<script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+</head>
+<body>
+
+<div id="header-placeholder"></div>
+
+<div class="header-spacer"></div>
+
+<main class="container section">
+  <p class="breadcrumb">
+    <a href="/">HOME</a> / <a href="/blog/">BLOG</a> / サンプル記事
+  </p>
+
+  <div id="blog-content"></div>
+</main>
+
+<div id="footer-placeholder"></div>
+
+<script src="/assets/js/include.js"></script>
+<script>
+async function loadBlogContent() {
+  try {
+    const response = await fetch('/blog/2026-08-25-first-post.md');
+    let mdContent = await response.text();
+    
+    // 最初の行（日付）を削除
+    const lines = mdContent.split('\n');
+    if (lines.length > 0 && lines[0].match(/^\d{4}\/\d{1,2}\/\d{1,2}$/)) {
+      lines.shift(); // 最初の行を削除
+      mdContent = lines.join('\n');
+    }
+    
+    const container = document.getElementById('blog-content');
+    if (typeof marked !== 'undefined' && marked.parse) {
+      // marked.jsの設定を最適化
+      marked.setOptions({
+        breaks: true,
+        gfm: true,
+        headerIds: false,
+        mangle: false
+      });
+      container.innerHTML = marked.parse(mdContent);
+    } else {
+      container.innerHTML = `<pre style="white-space:pre-wrap;font-family:inherit;">${mdContent}</pre>`;
+    }
+  } catch (error) {
+    console.error('マークダウンファイルの読み込みに失敗しました:', error);
+  }
+}
+
+document.addEventListener('DOMContentLoaded', loadBlogContent);
+</script>
+</body>
+</html>

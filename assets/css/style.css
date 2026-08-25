@@ -18,7 +18,7 @@
   --gray-900: #171717;
 
   /* タイポグラフィ */
-  --font-sans: "Inter", "Noto Sans JP", system-ui, sans-serif;
+  --font-sans: "Noto Sans JP", system-ui, sans-serif;
   --font-mono: "JetBrains Mono", ui-monospace, monospace;
 
   /* スペーシング */
@@ -338,7 +338,8 @@ main {
 /* =========================================================
    プラグイン詳細ページのマークダウンスタイル
    ========================================================= */
-#plugin-content {
+#plugin-content,
+#blog-content {
   line-height: 1.8;
   max-width: 800px;
 }
@@ -383,34 +384,40 @@ main {
   line-height: 1.5;
 }
 
-#plugin-content p {
+#plugin-content p,
+#blog-content p {
   margin-bottom: var(--space-md);
   color: var(--gray-700);
   line-height: 1.8;
 }
 
-#plugin-content ul {
+#plugin-content ul,
+#blog-content ul {
   margin-bottom: var(--space-md);
   padding-left: var(--space-lg);
   color: var(--gray-700);
 }
 
-#plugin-content ol {
+#plugin-content ol,
+#blog-content ol {
   margin-bottom: var(--space-md);
   padding-left: var(--space-lg);
   color: var(--gray-700);
 }
 
-#plugin-content li {
+#plugin-content li,
+#blog-content li {
   margin-bottom: var(--space-sm);
   line-height: 1.7;
 }
 
-#plugin-content li::marker {
+#plugin-content li::marker,
+#blog-content li::marker {
   color: var(--gray-500);
 }
 
-#plugin-content code {
+#plugin-content code,
+#blog-content code {
   background: var(--gray-100);
   padding: 0.125rem 0.375rem;
   border-radius: var(--radius-sm);
@@ -420,7 +427,8 @@ main {
   border: 1px solid var(--gray-200);
 }
 
-#plugin-content pre {
+#plugin-content pre,
+#blog-content pre {
   background: var(--gray-900);
   color: var(--gray-100);
   padding: var(--space-md);
@@ -430,7 +438,8 @@ main {
   border: 1px solid var(--gray-800);
 }
 
-#plugin-content pre code {
+#plugin-content pre code,
+#blog-content pre code {
   background: none;
   padding: 0;
   border: none;
@@ -439,7 +448,8 @@ main {
   line-height: 1.6;
 }
 
-#plugin-content blockquote {
+#plugin-content blockquote,
+#blog-content blockquote {
   border-left: 4px solid var(--black);
   padding-left: var(--space-md);
   margin: var(--space-md) 0;
@@ -450,27 +460,32 @@ main {
   border-radius: 0 var(--radius-md) var(--radius-md) 0;
 }
 
-#plugin-content a {
+#plugin-content a,
+#blog-content a {
   color: var(--black);
   text-decoration: underline;
   text-decoration-thickness: 1px;
   text-underline-offset: 2px;
 }
 
-#plugin-content a:hover {
+#plugin-content a:hover,
+#blog-content a:hover {
   text-decoration-thickness: 2px;
 }
 
-#plugin-content strong {
+#plugin-content strong,
+#blog-content strong {
   font-weight: 600;
   color: var(--black);
 }
 
-#plugin-content em {
+#plugin-content em,
+#blog-content em {
   font-style: italic;
 }
 
-#plugin-content table {
+#plugin-content table,
+#blog-content table {
   width: 100%;
   border-collapse: collapse;
   margin-bottom: var(--space-md);
@@ -478,31 +493,37 @@ main {
 }
 
 #plugin-content th,
-#plugin-content td {
+#blog-content th,
+#plugin-content td,
+#blog-content td {
   padding: var(--space-sm);
   text-align: left;
   border-bottom: 1px solid var(--gray-200);
 }
 
-#plugin-content th {
+#plugin-content th,
+#blog-content th {
   font-weight: 600;
   color: var(--black);
   background: var(--gray-50);
   border-bottom: 2px solid var(--gray-300);
 }
 
-#plugin-content tr:hover {
+#plugin-content tr:hover,
+#blog-content tr:hover {
   background: var(--gray-50);
 }
 
-#plugin-content hr {
+#plugin-content hr,
+#blog-content hr {
   border: none;
   height: 1px;
   background: var(--gray-200);
   margin: var(--space-lg) 0;
 }
 
-#plugin-content img {
+#plugin-content img,
+#blog-content img {
   max-width: 100%;
   height: auto;
   border-radius: var(--radius-md);
