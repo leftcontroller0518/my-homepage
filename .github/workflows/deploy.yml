@@ -12,6 +12,32 @@ jobs:
       - name: Checkout Code
         uses: actions/checkout@v4
 
+      - name: Generate blog posts list
+        run: |
+          # blog-posts.jsonを生成
+          echo "[" > assets/data/blog-posts.json
+          first=true
+          for file in blog/*.md; do
+            if [ "$first" = true ]; then
+              first=false
+            else
+              echo "," >> assets/data/blog-posts.json
+            fi
+            
+            # ファイル名からslugを取得（.mdを除く）
+            slug=$(basename "$file" .md)
+            
+            # 1行目から日付を取得
+            date=$(head -n 1 "$file")
+            
+            # 2行目からタイトルを取得（# を除く）
+            title=$(sed -n '2p' "$file" | sed 's/^# //')
+            
+            # JSON形式で出力
+            echo "  {\"title\": \"$title\", \"date\": \"$date\", \"slug\": \"$slug\"}" >> assets/data/blog-posts.json
+          done
+          echo "]" >> assets/data/blog-posts.json
+
       - name: Deploy via rsync
         uses: easingthemes/ssh-deploy@v4
         env:
@@ -19,5 +45,5 @@ jobs:
           REMOTE_HOST: ${{ secrets.SSH_HOST }}
           REMOTE_USER: ${{ secrets.SSH_USERNAME }}
           TARGET: /home/xs420368/leftcontroller.com/public_html/
-          REMOTE_PORT: 10022  # ← ここを「PORT」から「REMOTE_PORT」に変更！
-          ARGS: "-rltgoDzvO --delete"
+          REMOTE_PORT: 10022
+          ARGS: "-rltgoDzvO --delete" 
